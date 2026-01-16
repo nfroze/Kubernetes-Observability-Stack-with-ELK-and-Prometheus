@@ -12,6 +12,8 @@ This demonstrates production-grade thinking: namespace isolation between monitor
 
 ## Architecture
 
+![Cloud Architecture](screenshots/cloud-architecture.png)
+
 Logs flow from containers through the Fluentd DaemonSet, which tails `/var/log/containers/*.log` on each node, enriches entries with Kubernetes metadata (pod name, namespace, labels), and forwards them to Elasticsearch. Logstash provides an additional processing layer for beats input, while Kibana exposes the search and visualisation interface.
 
 Metrics flow separately through Prometheus, which scrapes endpoints across the cluster using service discovery. Grafana connects to Prometheus as a data source for building dashboards. Both stacks run in isolated namespaces (logging and monitoring) to maintain clear boundaries.
